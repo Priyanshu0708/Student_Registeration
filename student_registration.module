@@ -1,0 +1,93 @@
+<?php
+
+/**
+ * @file
+ * Contains student_registration.module.
+ */
+
+/**
+ * Function to getstudents from db.
+ */
+function student_registration_get_students($opt, $email, $rno, $date_from, $date_to) {
+  $query = \Drupal::database();
+
+  $res = [];
+  if ($opt == "All") {
+    $results = $query->select('students', 's')
+      ->extend('\Drupal\Core\Database\Query\PagerSelectExtender')
+      ->limit(20);
+    $results->fields('s', ['email',
+      'fname',
+      'lname',
+      'gender',
+      'age',
+      'rno',
+      'date',
+      'interests',
+      'notes',
+    ]);
+    $results->orderBy('s.rno', 'INC');
+    $res = $results->execute()->fetchAll(\PDO::FETCH_OBJ);
+    $data = [];
+  }
+  else {
+    $results = $query->select('students', 's')
+      ->extend('\Drupal\Core\Database\Query\PagerSelectExtender')
+      ->limit(20);
+    $results->fields('s', [
+      'email',
+      'fname',
+      'lname',
+      'gender',
+      'age',
+      'rno',
+      'date',
+      'interests',
+      'notes',
+    ]
+            );
+    $results->orderBy('s . rno', 'INC');
+    if ($email != "") {
+      $results->condition('email', "%" . $results->escapeLike($email) . "%", 'LIKE');
+    }
+    if ($rno != "") {
+      $results->condition('rno', $rno);
+    }
+    if ($date_from != "" && $date_to != "") {
+      $results->condition('date', [$date_from, $date_to], 'BETWEEN');
+    }
+    $res = $results->execute()->fetchAll(\PDO::FETCH_OBJ);
+    $data = [];
+  }
+  foreach ($res as $row) {
+    $data[] = [
+      'email' => $row->email,
+      'fname' => $row->fname,
+      'lname' => $row->lname,
+      'gender' => $row->gender,
+      'age' => $row->age,
+      'rno' => $row->rno,
+      'date' => date("d/m/Y", $row->date),
+      'interests' => $row->interests,
+      'notes' => $row->notes,
+    ];
+  }
+  return $data;
+}
+
+/**
+ * Function for showing user details.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function student_registration_theme($existing, $type, $theme, $path): array {
+  return [
+    'student_update' => [
+      'variables' => [
+        'data' => [],
+      ],
+    ],
+  ];
+}

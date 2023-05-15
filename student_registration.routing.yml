@@ -1,0 +1,15 @@
+student_registration.getStudentDetails:
+  path: "/student-details"
+  defaults:
+    _controller: '\Drupal\student_registration\Controller\StudentController::getStudentDetails'
+  requirements:
+    _permission: "backoffice"
+
+student_registration.editStudent:
+  path: "/edit-student/{id}"
+  defaults:
+    _form: '\Drupal\student_registration\Form\EditForm'
+    _title: "Edit Students Details Here"
+  requirements:
+    _permission: "access content"
+

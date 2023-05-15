@@ -1,0 +1,59 @@
+<?php
+
+/**
+ * @file
+ * Student_registration_schema.
+ */
+
+/**
+ * Function for create data base schema.
+ */
+function student_registration_schema() {
+  $schema['students'] = [
+    'fields' => [
+      'email' => [
+        'type' => 'varchar',
+        'length' => '60',
+        'not null' => TRUE,
+      ],
+      'fname' => [
+        'type' => 'varchar',
+        'length' => '50',
+        'not null' => TRUE,
+      ],
+      'lname' => [
+        'type' => 'varchar',
+        'length' => '50',
+        'not null' => TRUE,
+      ],
+      'gender' => [
+        'type' => 'varchar',
+        'length' => '10',
+        'not null' => TRUE,
+      ],
+      'age' => [
+        'type' => 'int',
+        'not null' => TRUE,
+      ],
+      'rno' => [
+        'type' => 'int',
+        'not null' => TRUE,
+      ],
+      'date' => [
+        'type' => 'int',
+        'not null' => TRUE,
+      ],
+      'interests' => [
+        'type' => 'varchar',
+        'length' => '50',
+        'not null' => TRUE,
+      ],
+      'notes' => [
+        'type' => 'text',
+        'not null' => TRUE,
+      ],
+    ],
+    'primary key' => ['rno'],
+  ];
+  return $schema;
+}

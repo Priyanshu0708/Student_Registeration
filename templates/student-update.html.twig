@@ -1,0 +1,12 @@
+<div>
+<p>Email : {{data[0].email}}</p>
+<p>First Name : {{data[0].fname}}</p>
+<p>Last Name : {{data[0].lname}}</p>
+<p>Gender : {{data[0].gender}}</p>
+<p>Age : {{data[0].age}}</p>
+<p>Roll Number : {{data[0].rno}}</p>
+<p>Date Of Admission : {{data[0].date|date('d-m-Y')}}</p>
+<p>Interests : {{data[0].interests}}</p>
+<p>Additional Notes : {{data[0].notes}}</p>
+<button><a href='/register/edit-student/{{data[0].rno}}'>Update Details</a></button>
+</div>
